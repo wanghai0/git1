@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ctcc.xfxt2.dao.TdkMapper">
+  <resultMap id="BaseResultMap" type="com.ctcc.xfxt2.entity.Tdk">
+    <constructor>
+      <arg column="ksh" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="wcsj" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="tddw" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="tdyx" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="tdsj" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="ksztmc" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="lqzy" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="tdyymc" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="bz" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="tdmbh" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="tdpc" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="tdzy" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="kl" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="zctddm" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="zctdmc" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="ycczsj" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="lqfs" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="jhxz" javaType="java.lang.String" jdbcType="VARCHAR" />
+    </constructor>
+  </resultMap>
+  <insert id="insert" parameterType="com.ctcc.xfxt2.entity.Tdk">
+    insert into tdk (ksh, wcsj, tddw, 
+      tdyx, tdsj, ksztmc, 
+      lqzy, tdyymc, bz, tdmbh, 
+      tdpc, tdzy, kl, zctddm, 
+      zctdmc, ycczsj, lqfs, 
+      jhxz)
+    values (#{ksh,jdbcType=VARCHAR}, #{wcsj,jdbcType=TIMESTAMP}, #{tddw,jdbcType=VARCHAR}, 
+      #{tdyx,jdbcType=VARCHAR}, #{tdsj,jdbcType=TIMESTAMP}, #{ksztmc,jdbcType=VARCHAR}, 
+      #{lqzy,jdbcType=VARCHAR}, #{tdyymc,jdbcType=VARCHAR}, #{bz,jdbcType=VARCHAR}, #{tdmbh,jdbcType=VARCHAR}, 
+      #{tdpc,jdbcType=VARCHAR}, #{tdzy,jdbcType=VARCHAR}, #{kl,jdbcType=VARCHAR}, #{zctddm,jdbcType=VARCHAR}, 
+      #{zctdmc,jdbcType=VARCHAR}, #{ycczsj,jdbcType=TIMESTAMP}, #{lqfs,jdbcType=VARCHAR}, 
+      #{jhxz,jdbcType=VARCHAR})
+  </insert>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select ksh, wcsj, tddw, tdyx, tdsj, ksztmc, lqzy, tdyymc, bz, tdmbh, tdpc, tdzy, 
+    kl, zctddm, zctdmc, ycczsj, lqfs, jhxz
+    from tdk
+  </select>
+  <select id="selectTdkByKsh" resultMap="BaseResultMap">
+    select ksh, wcsj, tddw, tdyx, tdsj, ksztmc, lqzy, tdyymc, bz, tdmbh, tdpc, tdzy, 
+    kl, zctddm, zctdmc, ycczsj, lqfs, jhxz
+    from tdk where ksh=#{ksh}
+  </select>
+  <select id="selectTdkBatch" resultMap="BaseResultMap">
+    select * from tdk where ksh limit #{start},#{limit}
+  </select>
+  <select id="selectTdkBatch2" resultMap="BaseResultMap">
+    select * from tdk
+  </select>
+</mapper>

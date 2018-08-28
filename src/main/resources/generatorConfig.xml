@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+ PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+ "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+	<properties resource="jdbc.properties" />
+	<!-- 不生成和Example查询有关的内容 -->
+	<context id="MBG" targetRuntime="MyBatis3Simple">
+		<!-- 注意以下标签的顺序:property*,plugin*,commentGenerator?,jdbcConnection, javaTypeResolver?,javaModelGenerator,sqlMapGenerator?, 
+			javaClientGenerator?,table+ -->
+		<!-- MBG生成的代码所包含的注释信息 -->
+		<commentGenerator>
+			<!-- 阻止生成注释，默认为false -->
+			<property name="suppressAllComments" value="true" />
+		</commentGenerator>
+		<!-- 数据库连接 -->
+		<jdbcConnection driverClass="${jdbc.driverClassName}" connectionURL="${jdbc.url}" userId="${jdbc.username}" password="${jdbc.password}"/>
+		<!-- 指定JDBC类型和Java类型如何转换.默认false，把JDBC DECIMAL 和 NUMERIC 类型解析为 Integer，为 true时把JDBC DECIMAL和NUMERIC 类型解析为java.math.BigDecimal -->
+		<javaTypeResolver>
+			<property name="forceBigDecimals" value="false" />
+		</javaTypeResolver>
+		<!-- 对应的实体类。targetPackage:生成实体类存放的包名，一般就是放在该包下。targetProject:指定目标项目路径，使用的是文件系统的绝对路径。 -->
+		<javaModelGenerator targetPackage="com.ctcc.xfxt2.entity"
+			targetProject="src\main\java">
+			<!-- 是否对model添加 构造函数 -->
+			<property name="constructorBased" value="true" />
+			<!-- 在targetPackage的基础上，根据数据库的schema再生成一层package，最终生成的类放在这个package下，默认为false -->
+			<property name="enableSubPackages" value="false" />
+			<!-- 设置是否在getter方法中，对String类型字段调用trim()方法 -->
+			<property name="trimStrings" value="true" />
+		</javaModelGenerator>
+		<!--对应的mapper文件 -->
+		<sqlMapGenerator targetPackage="com.ctcc.xfxt2.dao"
+			targetProject="src\main\java">
+			<!-- enableSubPackages:如果true，MBG会根据catalog和schema来生成子包。如果false就会直接用targetPackage属性。默认为false。 -->
+			<property name="enableSubPackages" value="false" />
+		</sqlMapGenerator>
+		<!-- 对应的mapper接口 -->
+		<javaClientGenerator type="XMLMAPPER"
+			targetPackage="com.ctcc.xfxt2.dao" targetProject="src\main\java">
+			<property name="enableSubPackages" value="false" />
+		</javaClientGenerator>
+		<!-- 表名对应生成的实体 -->
+		<table tableName="jhk" domainObjectName="Jhk"/>
+		<table tableName="jhk_hs" domainObjectName="JhkHs"/>
+		<table tableName="ksfctj" domainObjectName="Ksfctj"/>
+		<table tableName="ksfs" domainObjectName="Ksfs"/>
+		<table tableName="kssj" domainObjectName="Kssj"/>
+		<table tableName="lqk" domainObjectName="Lqk"/>
+		<table tableName="td_dy" domainObjectName="TdDy"/>
+		<table tableName="tdk" domainObjectName="Tdk"/>
+		<table tableName="yxdh" domainObjectName="Yxdh"/>
+		<table tableName="zyk" domainObjectName="Zyk"/>
+		<table tableName="zyk_hs" domainObjectName="ZykHs"/>
+		<table tableName="zyk_zq" domainObjectName="ZykZq"/>
+		<table tableName="zzzszyk" domainObjectName="Zzzszyk"/>
+		<table tableName="t_log" domainObjectName="Log"/>
+		<table tableName="t_right" domainObjectName="Right"/>
+		<table tableName="t_role" domainObjectName="Role"/>
+		<table tableName="t_role_right" domainObjectName="RoleRight"/>
+		<table tableName="t_user" domainObjectName="User"
+			enableCountByExample="true" enableUpdateByExample="true"
+			enableDeleteByExample="true" enableSelectByExample="true"
+			selectByExampleQueryId="true" />
+	</context>
+</generatorConfiguration>

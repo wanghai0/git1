@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ctcc.xfxt2.dao.ZykHsMapper">
+  <resultMap id="BaseResultMap" type="com.ctcc.xfxt2.entity.ZykHs">
+    <constructor>
+      <arg column="ksh" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="pcdm" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="zyh" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="yxdh" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="zydh1" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="zydh2" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="zydh3" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="zydh4" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="zydh5" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="zydh6" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="zyzyfc" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="zfc" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="status" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="ip" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="inputtime" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="updatetime" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="printtime" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="confirmtim" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="digest" javaType="java.lang.String" jdbcType="VARCHAR" />
+    </constructor>
+  </resultMap>
+  <insert id="insert" parameterType="com.ctcc.xfxt2.entity.ZykHs">
+    insert into zyk_hs (ksh, pcdm, zyh, 
+      yxdh, zydh1, zydh2, 
+      zydh3, zydh4, zydh5, 
+      zydh6, zyzyfc, zfc, 
+      status, ip, inputtime, 
+      updatetime, printtime, confirmtim, 
+      digest)
+    values (#{ksh,jdbcType=VARCHAR}, #{pcdm,jdbcType=VARCHAR}, #{zyh,jdbcType=VARCHAR}, 
+      #{yxdh,jdbcType=VARCHAR}, #{zydh1,jdbcType=VARCHAR}, #{zydh2,jdbcType=VARCHAR}, 
+      #{zydh3,jdbcType=VARCHAR}, #{zydh4,jdbcType=VARCHAR}, #{zydh5,jdbcType=VARCHAR}, 
+      #{zydh6,jdbcType=VARCHAR}, #{zyzyfc,jdbcType=VARCHAR}, #{zfc,jdbcType=VARCHAR}, 
+      #{status,jdbcType=VARCHAR}, #{ip,jdbcType=VARCHAR}, #{inputtime,jdbcType=VARCHAR}, 
+      #{updatetime,jdbcType=VARCHAR}, #{printtime,jdbcType=VARCHAR}, #{confirmtim,jdbcType=VARCHAR}, 
+      #{digest,jdbcType=VARCHAR})
+  </insert>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select ksh, pcdm, zyh, yxdh, zydh1, zydh2, zydh3, zydh4, zydh5, zydh6, zyzyfc, zfc, 
+    status, ip, inputtime, updatetime, printtime, confirmtim, digest
+    from zyk_hs
+  </select>
+  <select id="selectZykHsByKSH" resultMap="BaseResultMap">
+    select * from zyk_hs where ksh=#{ksh}
+  </select>
+</mapper>

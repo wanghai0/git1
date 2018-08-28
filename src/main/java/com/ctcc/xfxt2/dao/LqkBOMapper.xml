@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ctcc.xfxt2.dao.LqkBOMapper">
+  <resultMap id="BaseResultMap" type="com.ctcc.xfxt2.entity.LqkBO">
+  	<result column="zyfx" property="zyfx" javaType="java.lang.String" jdbcType="VARCHAR" /> 
+  	<association property="lqk" javaType="com.ctcc.xfxt2.entity.Lqk">
+  		<result property="ksh" column="ksh" javaType="java.lang.String" jdbcType="VARCHAR" />
+	      <result property="xm" column="xm" javaType="java.lang.String" jdbcType="VARCHAR" />
+	      <result property="yxdh" column="yxdh" javaType="java.lang.String" jdbcType="VARCHAR" />
+	      <result property="yxmc" column="yxmc" javaType="java.lang.String" jdbcType="VARCHAR" />
+	      <result property="zydh" column="zydh" javaType="java.lang.String" jdbcType="VARCHAR" />
+	      <result property="zymc" column="zymc" javaType="java.lang.String" jdbcType="VARCHAR" />
+	      <result property="pcdm" column="pcdm" javaType="java.lang.String" jdbcType="VARCHAR" />
+	      <result property="pcmc" column="pcmc" javaType="java.lang.String" jdbcType="VARCHAR" />
+	      <result property="kldm" column="kldm" javaType="java.lang.String" jdbcType="VARCHAR" />
+	      <result property="klmc" column="klmc" javaType="java.lang.String" jdbcType="VARCHAR" />
+	      <result property="lqljzyh" column="lqljzyh" javaType="java.lang.String" jdbcType="VARCHAR" />
+	      <result property="lqsj" column="lqsj" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+	      <result property="jhxz" column="jhxz" javaType="java.lang.String" jdbcType="VARCHAR" />
+	      <result property="jhxzmc" column="jhxzmc" javaType="java.lang.String" jdbcType="VARCHAR" />
+	      <result property="xz" column="xz" javaType="java.lang.String" jdbcType="VARCHAR" />
+	      <result property="sfsf" column="sfsf" javaType="java.lang.String" jdbcType="VARCHAR" />
+	      <result property="lqfs" column="lqfs" javaType="java.lang.String" jdbcType="VARCHAR" />
+	      <result property="lqfsmc" column="lqfsmc" javaType="java.lang.String" jdbcType="VARCHAR" />
+	      <result property="zxmc" column="zxmc" javaType="java.lang.String" jdbcType="VARCHAR" />
+	      <result property="zxdm" column="zxdm" javaType="java.lang.String" jdbcType="VARCHAR" />
+	      <result property="dqdm" column="dqdm" javaType="java.lang.String" jdbcType="VARCHAR" />
+	      <result property="dqmc" column="dqmc" javaType="java.lang.String" jdbcType="VARCHAR" />
+	      <result property="ksztmc" column="ksztmc" javaType="java.lang.String" jdbcType="VARCHAR" />
+  	</association>
+  </resultMap>
+  <select id="selectLqkBoByKsh" resultMap="BaseResultMap">
+    select j.zyfx, l.ksh, l.xm, l.yxdh, l.yxmc, l.zydh, l.zymc, l.pcdm, l.pcmc, l.kldm, l.klmc, l.lqljzyh, l.lqsj, l.jhxz, 
+    l.jhxzmc, l.xz, l.sfsf, l.lqfs, l.lqfsmc, l.zxmc, l.zxdm, l.dqdm, l.dqmc, l.ksztmc
+    from jhk j,lqk l where l.ksh=#{ksh} and l.yxdh=j.yxdh and l.zydh=j.zydh
+  </select>
+</mapper>

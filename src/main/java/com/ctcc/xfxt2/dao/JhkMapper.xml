@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ctcc.xfxt2.dao.JhkMapper">
+  <resultMap id="BaseResultMap" type="com.ctcc.xfxt2.entity.Jhk">
+    <constructor>
+      <arg column="KB" javaType="java.lang.String" jdbcType="CHAR" />
+      <arg column="YXDH" javaType="java.lang.String" jdbcType="CHAR" />
+      <arg column="ZYDH" javaType="java.lang.String" jdbcType="CHAR" />
+      <arg column="ZYDM" javaType="java.lang.String" jdbcType="CHAR" />
+      <arg column="ZYMC" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="ZYFX" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="ZYLB" javaType="java.lang.String" jdbcType="CHAR" />
+      <arg column="JHS" javaType="java.lang.String" jdbcType="CHAR" />
+      <arg column="WYYZ" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="JSZHL" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="SFBXYSJS" javaType="java.lang.String" jdbcType="CHAR" />
+      <arg column="SFBXYSTKJS" javaType="java.lang.String" jdbcType="CHAR" />
+      <arg column="YSML" javaType="java.lang.String" jdbcType="CHAR" />
+      <arg column="WL" javaType="java.lang.String" jdbcType="CHAR" />
+      <arg column="HX" javaType="java.lang.String" jdbcType="CHAR" />
+      <arg column="LS" javaType="java.lang.String" jdbcType="CHAR" />
+      <arg column="DL" javaType="java.lang.String" jdbcType="CHAR" />
+      <arg column="ZZ" javaType="java.lang.String" jdbcType="CHAR" />
+      <arg column="SW" javaType="java.lang.String" jdbcType="CHAR" />
+      <arg column="YSTSZY" javaType="java.lang.String" jdbcType="CHAR" />
+      <arg column="TDDWDM" javaType="java.lang.String" jdbcType="VARCHAR" />
+    </constructor>
+  </resultMap>
+  <insert id="insert" parameterType="com.ctcc.xfxt2.entity.Jhk">
+    insert into jhk (KB, YXDH, ZYDH, ZYDM, 
+      ZYMC, ZYFX, ZYLB, JHS, 
+      WYYZ, JSZHL, SFBXYSJS, 
+      SFBXYSTKJS, YSML, WL, HX, 
+      LS, DL, ZZ, SW, 
+      YSTSZY, TDDWDM)
+    values (#{kb,jdbcType=CHAR}, #{yxdh,jdbcType=CHAR}, #{zydh,jdbcType=CHAR}, #{zydm,jdbcType=CHAR}, 
+      #{zymc,jdbcType=VARCHAR}, #{zyfx,jdbcType=VARCHAR}, #{zylb,jdbcType=CHAR}, #{jhs,jdbcType=CHAR}, 
+      #{wyyz,jdbcType=VARCHAR}, #{jszhl,jdbcType=VARCHAR}, #{sfbxysjs,jdbcType=CHAR}, 
+      #{sfbxystkjs,jdbcType=CHAR}, #{ysml,jdbcType=CHAR}, #{wl,jdbcType=CHAR}, #{hx,jdbcType=CHAR}, 
+      #{ls,jdbcType=CHAR}, #{dl,jdbcType=CHAR}, #{zz,jdbcType=CHAR}, #{sw,jdbcType=CHAR}, 
+      #{ystszy,jdbcType=CHAR}, #{tddwdm,jdbcType=VARCHAR})
+  </insert>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select KB, YXDH, ZYDH, ZYDM, ZYMC, ZYFX, ZYLB, JHS, WYYZ, JSZHL, SFBXYSJS, SFBXYSTKJS, 
+    YSML, WL, HX, LS, DL, ZZ, SW, YSTSZY, TDDWDM
+    from jhk
+  </select>
+  <select id="selectJhkByYxdhAndZydh" resultMap="BaseResultMap">
+  	select * from jhk where yxdh=#{yxdh} and zydh =#{zydh}
+  </select>
+</mapper>

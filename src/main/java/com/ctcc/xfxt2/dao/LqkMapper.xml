@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ctcc.xfxt2.dao.LqkMapper">
+  <resultMap id="BaseResultMap" type="com.ctcc.xfxt2.entity.Lqk">
+    <constructor>
+      <arg column="ksh" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="xm" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="yxdh" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="yxmc" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="zydh" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="zymc" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="pcdm" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="pcmc" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="kldm" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="klmc" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="lqljzyh" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="lqsj" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="jhxz" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="jhxzmc" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="xz" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="sfsf" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="lqfs" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="lqfsmc" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="zxmc" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="zxdm" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="dqdm" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="dqmc" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="ksztmc" javaType="java.lang.String" jdbcType="VARCHAR" />
+    </constructor>
+  </resultMap>
+  <insert id="insert" parameterType="com.ctcc.xfxt2.entity.Lqk">
+    insert into lqk (ksh, xm, yxdh, 
+      yxmc, zydh, zymc, pcdm, 
+      pcmc, kldm, klmc, lqljzyh, 
+      lqsj, jhxz, jhxzmc, 
+      xz, sfsf, lqfs, lqfsmc, 
+      zxmc, zxdm, dqdm, dqmc, 
+      ksztmc)
+    values (#{ksh,jdbcType=VARCHAR}, #{xm,jdbcType=VARCHAR}, #{yxdh,jdbcType=VARCHAR}, 
+      #{yxmc,jdbcType=VARCHAR}, #{zydh,jdbcType=VARCHAR}, #{zymc,jdbcType=VARCHAR}, #{pcdm,jdbcType=VARCHAR}, 
+      #{pcmc,jdbcType=VARCHAR}, #{kldm,jdbcType=VARCHAR}, #{klmc,jdbcType=VARCHAR}, #{lqljzyh,jdbcType=VARCHAR}, 
+      #{lqsj,jdbcType=TIMESTAMP}, #{jhxz,jdbcType=VARCHAR}, #{jhxzmc,jdbcType=VARCHAR}, 
+      #{xz,jdbcType=VARCHAR}, #{sfsf,jdbcType=VARCHAR}, #{lqfs,jdbcType=VARCHAR}, #{lqfsmc,jdbcType=VARCHAR}, 
+      #{zxmc,jdbcType=VARCHAR}, #{zxdm,jdbcType=VARCHAR}, #{dqdm,jdbcType=VARCHAR}, #{dqmc,jdbcType=VARCHAR}, 
+      #{ksztmc,jdbcType=VARCHAR})
+  </insert>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select ksh, xm, yxdh, yxmc, zydh, zymc, pcdm, pcmc, kldm, klmc, lqljzyh, lqsj, jhxz, 
+    jhxzmc, xz, sfsf, lqfs, lqfsmc, zxmc, zxdm, dqdm, dqmc, ksztmc
+    from lqk
+  </select>
+</mapper>

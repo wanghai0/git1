@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ctcc.xfxt2.dao.ZykZqMapper">
+  <resultMap id="BaseResultMap" type="com.ctcc.xfxt2.entity.ZykZq">
+    <constructor>
+      <arg column="ksh" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="pcdm" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="kldm" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="kb" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="zyh" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="yxdh" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="zydh1" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="zydh2" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="zydh3" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="zydh4" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="zydh5" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="zydh6" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="zytz" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="zyzyfc" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="sffhdjyq" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="jgdm" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="bz" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="status" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="digest" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="ip" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="inputtime" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="updatetime" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="printtime" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="confirmtim" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="srzh" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="xgzh" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="tsdm" javaType="java.lang.String" jdbcType="VARCHAR" />
+    </constructor>
+  </resultMap>
+  <insert id="insert" parameterType="com.ctcc.xfxt2.entity.ZykZq">
+    insert into zyk_zq (ksh, pcdm, kldm, 
+      kb, zyh, yxdh, zydh1, 
+      zydh2, zydh3, zydh4, 
+      zydh5, zydh6, zytz, 
+      zyzyfc, sffhdjyq, jgdm, 
+      bz, status, digest, 
+      ip, inputtime, updatetime, 
+      printtime, confirmtim, srzh, 
+      xgzh, tsdm)
+    values (#{ksh,jdbcType=VARCHAR}, #{pcdm,jdbcType=VARCHAR}, #{kldm,jdbcType=VARCHAR}, 
+      #{kb,jdbcType=VARCHAR}, #{zyh,jdbcType=VARCHAR}, #{yxdh,jdbcType=VARCHAR}, #{zydh1,jdbcType=VARCHAR}, 
+      #{zydh2,jdbcType=VARCHAR}, #{zydh3,jdbcType=VARCHAR}, #{zydh4,jdbcType=VARCHAR}, 
+      #{zydh5,jdbcType=VARCHAR}, #{zydh6,jdbcType=VARCHAR}, #{zytz,jdbcType=VARCHAR}, 
+      #{zyzyfc,jdbcType=VARCHAR}, #{sffhdjyq,jdbcType=VARCHAR}, #{jgdm,jdbcType=VARCHAR}, 
+      #{bz,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{digest,jdbcType=VARCHAR}, 
+      #{ip,jdbcType=VARCHAR}, #{inputtime,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}, 
+      #{printtime,jdbcType=VARCHAR}, #{confirmtim,jdbcType=VARCHAR}, #{srzh,jdbcType=VARCHAR}, 
+      #{xgzh,jdbcType=VARCHAR}, #{tsdm,jdbcType=VARCHAR})
+  </insert>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select ksh, pcdm, kldm, kb, zyh, yxdh, zydh1, zydh2, zydh3, zydh4, zydh5, zydh6, 
+    zytz, zyzyfc, sffhdjyq, jgdm, bz, status, digest, ip, inputtime, updatetime, printtime, 
+    confirmtim, srzh, xgzh, tsdm
+    from zyk_zq
+  </select>
+</mapper>

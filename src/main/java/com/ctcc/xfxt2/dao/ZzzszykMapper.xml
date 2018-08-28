@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ctcc.xfxt2.dao.ZzzszykMapper">
+  <resultMap id="BaseResultMap" type="com.ctcc.xfxt2.entity.Zzzszyk">
+    <constructor>
+      <arg column="KSH" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="YXDH" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="ZYDH1" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="ZYDH2" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="ZYDH3" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="ZYDH4" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="ZYDH5" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="ZYDH6" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="FCBJ" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="INPUTTIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="DIGEST" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="STATUS" javaType="java.lang.Integer" jdbcType="INTEGER" />
+    </constructor>
+  </resultMap>
+  <insert id="insert" parameterType="com.ctcc.xfxt2.entity.Zzzszyk">
+    insert into zzzszyk (KSH, YXDH, ZYDH1, 
+      ZYDH2, ZYDH3, ZYDH4, 
+      ZYDH5, ZYDH6, FCBJ, 
+      INPUTTIME, DIGEST, STATUS
+      )
+    values (#{ksh,jdbcType=VARCHAR}, #{yxdh,jdbcType=VARCHAR}, #{zydh1,jdbcType=VARCHAR}, 
+      #{zydh2,jdbcType=VARCHAR}, #{zydh3,jdbcType=VARCHAR}, #{zydh4,jdbcType=VARCHAR}, 
+      #{zydh5,jdbcType=VARCHAR}, #{zydh6,jdbcType=VARCHAR}, #{fcbj,jdbcType=VARCHAR}, 
+      #{inputtime,jdbcType=TIMESTAMP}, #{digest,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}
+      )
+  </insert>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select KSH, YXDH, ZYDH1, ZYDH2, ZYDH3, ZYDH4, ZYDH5, ZYDH6, FCBJ, INPUTTIME, DIGEST, 
+    STATUS
+    from zzzszyk
+  </select>
+  <select id="selectZzzsZykByKSH" resultMap="BaseResultMap">
+    select * from zzzszyk where ksh =#{ksh}
+  </select>
+</mapper>

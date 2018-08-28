@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ctcc.xfxt2.dao.UserMapper">
+  <resultMap id="BaseResultMap" type="com.ctcc.xfxt2.entity.User">
+    <constructor>
+      <arg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="role_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="login_name" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="password" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="salt" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="user_name" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="mobile" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="address" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="email" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="dydm" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="login_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="login_count" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="status" javaType="java.lang.String" jdbcType="CHAR" />
+    </constructor>
+  </resultMap>
+  <insert id="insert" parameterType="com.ctcc.xfxt2.entity.User">
+    insert into t_user (id, role_id, login_name, 
+      password, salt, user_name, 
+      mobile, address, email, 
+      dydm, login_time, login_count, 
+      status)
+    values (#{id,jdbcType=INTEGER}, #{roleId,jdbcType=INTEGER}, #{loginName,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR}, #{salt,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
+      #{mobile,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
+      #{dydm,jdbcType=VARCHAR}, #{loginTime,jdbcType=TIMESTAMP}, #{loginCount,jdbcType=INTEGER}, 
+      #{status,jdbcType=CHAR})
+  </insert>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, role_id, login_name, password, salt, user_name, mobile, address, email, 
+    dydm, login_time, login_count, status
+    from t_user
+  </select>
+  <select id="selectUser" resultMap="BaseResultMap">
+  	select id, role_id, login_name, password, salt, user_name, mobile, address, email, 
+    dydm, login_time, login_count, status
+    from t_user
+    <where>
+    	login_name=#{login_name} and password=#{password} and status='1'
+    </where>
+  </select>
+   <select id="selectUserByAccount" resultMap="BaseResultMap">
+  	select id, role_id, login_name, password, salt, user_name, mobile, address, email, 
+    dydm, login_time, login_count, status
+    from t_user
+    <where>
+    	login_name=#{login_name}
+    </where>
+  </select>
+  <update id="updatePassword">
+    <selectKey resultType="int" order="AFTER" keyProperty="id">
+        SELECT LAST_INSERT_ID()
+    </selectKey>
+  	update t_user set password=#{password} where login_name=#{login_name};
+  </update>
+</mapper>

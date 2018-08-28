@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ctcc.xfxt2.dao.JhkHsMapper">
+  <resultMap id="BaseResultMap" type="com.ctcc.xfxt2.entity.JhkHs">
+    <constructor>
+      <arg column="yxdh" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="yxmc" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="zydh" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="zymc" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="zyfx" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="pcdm" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="kldm" javaType="java.lang.String" jdbcType="VARCHAR" />
+    </constructor>
+  </resultMap>
+  <insert id="insert" parameterType="com.ctcc.xfxt2.entity.JhkHs">
+    insert into jhk_hs (yxdh, yxmc, zydh, 
+      zymc, zyfx, pcdm, kldm
+      )
+    values (#{yxdh,jdbcType=VARCHAR}, #{yxmc,jdbcType=VARCHAR}, #{zydh,jdbcType=VARCHAR}, 
+      #{zymc,jdbcType=VARCHAR}, #{zyfx,jdbcType=VARCHAR}, #{pcdm,jdbcType=VARCHAR}, #{kldm,jdbcType=VARCHAR}
+      )
+  </insert>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select yxdh, yxmc, zydh, zymc, zyfx, pcdm, kldm
+    from jhk_hs
+  </select>
+  <select id="selectJhkHsByYxdhAndZydh" resultMap="BaseResultMap">
+    select * from jhk_hs where yxdh=#{yxdh} and zydh =#{zydh}
+  </select>
+</mapper>

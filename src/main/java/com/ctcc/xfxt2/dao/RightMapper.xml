@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ctcc.xfxt2.dao.RightMapper">
+	<resultMap id="BaseResultMap" type="com.ctcc.xfxt2.entity.Right">
+		<constructor>
+			<arg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+			<arg column="right_name" javaType="java.lang.String" jdbcType="VARCHAR" />
+			<arg column="url" javaType="java.lang.String" jdbcType="VARCHAR" />
+			<arg column="description" javaType="java.lang.String" jdbcType="VARCHAR" />
+			<arg column="status" javaType="java.lang.String" jdbcType="CHAR" />
+		</constructor>
+	</resultMap>
+	<insert id="insert" parameterType="com.ctcc.xfxt2.entity.Right">
+		insert into t_right (id, right_name, url,
+		description, status)
+		values (#{id,jdbcType=INTEGER}, #{rightName,jdbcType=VARCHAR},
+		#{url,jdbcType=VARCHAR},
+		#{description,jdbcType=VARCHAR}, #{status,jdbcType=CHAR})
+	</insert>
+	<select id="selectAll" resultMap="BaseResultMap">
+		select id, right_name, url, description, status
+		from t_right
+	</select>
+	<select id="selectRightByUserId" resultMap="BaseResultMap">
+		select id, right_name, url, description, status
+		from t_right where status=1 and id in (
+		select right_id from t_role_right where status=1 and role_id=#{userId}
+		)
+	</select>
+</mapper>

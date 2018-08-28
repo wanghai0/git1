@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ctcc.xfxt2.dao.KssjMapper">
+  <resultMap id="BaseResultMap" type="com.ctcc.xfxt2.entity.Kssj">
+    <constructor>
+      <arg column="ksh" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="kjh" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="xm" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="zjhm" javaType="java.lang.String" jdbcType="VARCHAR" />
+    </constructor>
+  </resultMap>
+  <insert id="insert" parameterType="com.ctcc.xfxt2.entity.Kssj">
+    insert into kssj (ksh, kjh, xm, 
+      zjhm)
+    values (#{ksh,jdbcType=VARCHAR}, #{kjh,jdbcType=VARCHAR}, #{xm,jdbcType=VARCHAR}, 
+      #{zjhm,jdbcType=VARCHAR})
+  </insert>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select ksh, kjh, xm, zjhm
+    from kssj
+  </select>
+  <select id="selectKssjByKSH" resultMap="BaseResultMap">
+  	select * from kssj where ksh=#{ksh}
+  </select>
+  
+</mapper>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ctcc.xfxt2.dao.KsfsMapper">
+  <resultMap id="BaseResultMap" type="com.ctcc.xfxt2.entity.Ksfs">
+    <constructor>
+      <arg column="KJH" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="XM" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="BKKLDM" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="KMZDM" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="KM1" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="KM2" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="KM3" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="JLF_PTL" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="JLF_TYL" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="ZGF" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="KM1FJF" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="KM2FJF" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="TYLWHZF" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="PTLZF" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="XXKM4MC" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="XXKM4DD" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="XXKM5MC" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="XXKM5DD" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="KSH" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="ZKZH" javaType="java.lang.String" jdbcType="VARCHAR" />
+    </constructor>
+  </resultMap>
+  <insert id="insert" parameterType="com.ctcc.xfxt2.entity.Ksfs">
+    insert into ksfs (KJH, XM, BKKLDM, 
+      KMZDM, KM1, KM2, KM3, 
+      JLF_PTL, JLF_TYL, ZGF, 
+      KM1FJF, KM2FJF, TYLWHZF, 
+      PTLZF, XXKM4MC, XXKM4DD, 
+      XXKM5MC, XXKM5DD, KSH, 
+      ZKZH)
+    values (#{kjh,jdbcType=VARCHAR}, #{xm,jdbcType=VARCHAR}, #{bkkldm,jdbcType=VARCHAR}, 
+      #{kmzdm,jdbcType=VARCHAR}, #{km1,jdbcType=INTEGER}, #{km2,jdbcType=INTEGER}, #{km3,jdbcType=INTEGER}, 
+      #{jlfPtl,jdbcType=INTEGER}, #{jlfTyl,jdbcType=INTEGER}, #{zgf,jdbcType=INTEGER}, 
+      #{km1fjf,jdbcType=INTEGER}, #{km2fjf,jdbcType=INTEGER}, #{tylwhzf,jdbcType=INTEGER}, 
+      #{ptlzf,jdbcType=INTEGER}, #{xxkm4mc,jdbcType=VARCHAR}, #{xxkm4dd,jdbcType=VARCHAR}, 
+      #{xxkm5mc,jdbcType=VARCHAR}, #{xxkm5dd,jdbcType=VARCHAR}, #{ksh,jdbcType=VARCHAR}, 
+      #{zkzh,jdbcType=VARCHAR})
+  </insert>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select KJH, XM, BKKLDM, KMZDM, KM1, KM2, KM3, JLF_PTL, JLF_TYL, ZGF, KM1FJF, KM2FJF, 
+    TYLWHZF, PTLZF, XXKM4MC, XXKM4DD, XXKM5MC, XXKM5DD, KSH, ZKZH
+    from ksfs
+  </select>
+  <select id="selectScoreByKSH" resultMap="BaseResultMap">
+  	select * from ksfs where ksh =#{ksh}
+  </select>
+   <select id="selectScoreByZKZH" resultMap="BaseResultMap">
+  	select * from ksfs where zkzh =#{zkzh}
+  </select>
+</mapper>
