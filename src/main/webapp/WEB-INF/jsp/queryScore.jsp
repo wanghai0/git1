@@ -1,10 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="zh-CN">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <title>江苏省普通高校招生考生信息查询系统</title>
 <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.js"></script>
@@ -14,7 +14,7 @@
 		var user = "${sessionScope.user}";
 		if (user == null) {
 			alert("当前用户未登录，请重新登录！");
-			location.href = "/login.jsp";
+			location.href = "${pageContext.request.contextPath}/index.jsp";
 			return;
 		}
 		$.ajax({
@@ -30,7 +30,7 @@
 			},
 			error : function() {
 				alert("获取菜单失败！请重新登录！");
-				location.href = "/login.jsp";
+				location.href = "${pageContext.request.contextPath}/index.jsp";
 			}
 		});
 	});
@@ -42,7 +42,9 @@
 			return;
 		}
 		$("#res_score_div").empty();
-		$("#res_score_div").append("<table class='table table-bordered'><tr></tr><tr></tr></table>");
+		$("#res_score_div")
+				.append(
+						"<table class='table table-bordered'><tr></tr><tr></tr></table>");
 		$.ajax({
 			type : "POST",
 			url : "${pageContext.request.contextPath}/queryScore",
@@ -192,8 +194,8 @@
 		</div>
 		<div class="form-group">
 			<form class="form-horizontal">
-				<label for="">请输入考生号或准考证号：</label> <input class="form-control"
-					id="stuNum" name="stuNum" />
+				<label for="">请输入考生号或准考证号：</label>
+				<input type="text" class="form-control" id="stuNum" name="stuNum" />
 				<button type="button" class="button-default" onclick="queryScore()">成绩查询</button>
 			</form>
 		</div>

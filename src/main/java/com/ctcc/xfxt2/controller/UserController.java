@@ -172,6 +172,7 @@ public class UserController {
         }
         String password = request.getParameter("password").trim();
         int res = userServiceImpl.updatePassword(account, password);
+        request.getSession().invalidate();
         try {
             response.getWriter().print(res);
         } catch (IOException e) {

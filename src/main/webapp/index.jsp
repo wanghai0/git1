@@ -80,7 +80,7 @@
 			<div class="form-group">
 				<label for="">验证码</label>
 				<input type="text" class="form-control" id="user_validationCode" name="user_validationCode" placeholder="请输入验证码">
-				<label for="" id="validationCodeLabel" onclick="generateVerificationCode()"></label>
+				<label for="" id="validationCodeLabel" onclick="generateVerficationCode()"></label>
 			</div>
 			<div class="form-group">
 				<button type="button" class="btn btn-default" onclick="checkForm()">登录</button>

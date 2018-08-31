@@ -98,7 +98,7 @@
 </head>
 <body>
 	<div class="container">
-		<form class="form-horizontal" id="resetPasswordForm" name="resetPasswordForm" action="${pageContext.request.contextPath}/resetPassword" method="post">
+		<form class="form-horizontal" id="resetPasswordForm" name="resetPasswordForm">
 			<div class="form-group" id="accountDiv">
 				<label for="">请输入账号：</label>
 				<input type="text" class="form-control" id="user_account" name="user_account" placeholder="请输入账号" />
