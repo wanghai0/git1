@@ -20,197 +20,224 @@ import com.ctcc.xfxt2.service.impl.UserServiceImpl;
 @Controller
 public class UserController {
 
-	@Autowired
-	private UserServiceImpl userServiceImpl;
+    @Autowired
+    private UserServiceImpl userServiceImpl;
 
-	@Autowired
-	private RightServiceImpl rightServiceImpl;
+    @Autowired
+    private RightServiceImpl rightServiceImpl;
 
-	@RequestMapping("/login")
-	public String login(HttpServletRequest request) {
-		if (request.getParameter("acct") == null || request.getParameter("acct").length() == 0) {
-			return "error";
-		}
-		String account = request.getParameter("acct").trim();
-		if (request.getParameter("pwd") == null || request.getParameter("pwd").length() == 0) {
-			return "error";
-		}
-		String password = request.getParameter("pwd").trim();
-		User user = userServiceImpl.getUser(account, password);
-		if (user == null) {
-			return "error";
-		}
-		request.getSession().setAttribute("user", user);
-		return "smsLogin";
-	}
+    // 生成验证码
+    @RequestMapping("/generateVerficationCode")
+    @ResponseBody
+    public void generateVerficationCode(HttpServletRequest request, HttpServletResponse response) {
+        String validationCode = "";// 验证码
+        int codeLength = 4;// 验证码的长度
+        char[] selectChar = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
+                'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };// 所有候选组成验证码的字符，也可以用中文
+        for (int i = 0; i < codeLength; i++) {
+            int charIndex = (int) (Math.floor(Math.random() * 36));
+            validationCode += selectChar[charIndex];
+        }
+        if ("".equals(validationCode)) {
+            return;
+        }
+        try {
+            response.getWriter().print(validationCode);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
-	@RequestMapping("/sendSMSValidationCode")
-	@ResponseBody
-	public void sendSMSValidationCode(HttpServletRequest request, HttpServletResponse response) {
-		if (request.getParameter("mobile") == null || request.getParameter("mobile").length() == 0) {
-			return;
-		}
-		String mobile = request.getParameter("mobile").trim();
-		String validationCode = userServiceImpl.sendSMSValidationCode(mobile);
-		request.getSession().setAttribute("sessionValidationCode", validationCode);
-		System.out.println(validationCode);
-	}
-	
-	@RequestMapping("/checkValidationCode")
-	@ResponseBody
-	public void checkValidationCode(HttpServletRequest request,HttpServletResponse response){
-	    if(request.getParameter("userValidationCode")==null){
-	        return;
-	    }
-		String userValidationCode=request.getParameter("userValidationCode").trim();
-		if(request.getSession().getAttribute("sessionValidationCode")==null){
-		    return;
-		}
-		String sessionValidationCode=request.getSession().getAttribute("sessionValidationCode").toString();
-		try{
-			if(!sessionValidationCode.equals(userValidationCode)){
-			    System.out.println("false");
-				response.getWriter().print("false");
-			}else{
-			    System.out.println("true");
-				response.getWriter().print("true");
-			}
-		}catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+    @RequestMapping("/login")
+    public String login(HttpServletRequest request) {
+        if (request.getParameter("user_account") == null || request.getParameter("user_account").length() == 0) {
+            return "error";
+        }
+        String account = request.getParameter("user_account").trim();
+        if (request.getParameter("user_password") == null || request.getParameter("user_password").length() == 0) {
+            return "error";
+        }
+        String password = request.getParameter("user_password").trim();
+        User user = userServiceImpl.getUser(account, password);
+        if (user == null) {
+            return "error";
+        }
+        request.getSession().setAttribute("user", user);
+        return "smsLogin";
+    }
 
-	@RequestMapping("/SMSLogin")
-	public String SMSLogin(HttpServletRequest request) {
-		if(request.getSession().getAttribute("user")==null){
-			return "error";
-		}
-		return "queryScore";
-	}
-	
-	@RequestMapping("/queryMenu")
-	@ResponseBody
-	public void menu(HttpServletRequest request, HttpServletResponse response) {
-		if(request.getSession().getAttribute("user")==null){
-			return;
-		}
-		User user = (User) request.getSession().getAttribute("user");
-		List<Right> rightList = rightServiceImpl.listRightByUser(user);
-		if(rightList==null||rightList.size()==0){
-		    return;
-		}
-		String jsonStrRightList = JSONObject.toJSONString(rightList);
-		try {
-			response.getWriter().print(jsonStrRightList);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+    @RequestMapping("/sendSMSCode")
+    @ResponseBody
+    public void sendSMSCode(HttpServletRequest request, HttpServletResponse response) {
+       User user = (User) request.getSession().getAttribute("user");
+       if(user==null){
+           return;
+       }
+       String mobile = user.getMobile().trim();
+       String smsCode = userServiceImpl.sendSMSCode(mobile);
+       request.getSession().setAttribute("smsCode", smsCode);
+       System.out.println(smsCode);
+    }
 
-	@RequestMapping("/toForgetPassword")
-	public String toForgetPassword() {
-		return "forgetPassword";
-	}
+    @RequestMapping("/checkUserSMSCode")
+    @ResponseBody
+    public void checkUserSMSCode(HttpServletRequest request, HttpServletResponse response) {
+        if (request.getParameter("user_SMSCode") == null) {
+            return;
+        }
+        String user_SMSCode = request.getParameter("user_SMSCode").trim();
+        if (request.getSession().getAttribute("smsCode") == null) {
+            return;
+        }
+        String sessionSMSCode = request.getSession().getAttribute("smsCode").toString();
+        try {
+            if (sessionSMSCode.equals(user_SMSCode)) {
+                response.getWriter().print("true");
+            } else {
+                response.getWriter().print("false");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
-	@RequestMapping("/findUserMobileByAccount")
-	@ResponseBody
-	public void findUserByAccount(HttpServletRequest request, HttpServletResponse response) {
-		if (request.getParameter("account") == null) {
-			return;
-		}
-		String account = request.getParameter("account").trim();
-		User user = userServiceImpl.getUserByAccount(account);
-		if(user==null){
-			return;
-		}
-		String mobile=user.getMobile().trim();
-		if(mobile==null||mobile.length()==0){
-			return;
-		}
-		try {
-			response.getWriter().print(mobile);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+    @RequestMapping("/SMSLogin")
+    public String SMSLogin(HttpServletRequest request) {
+        if (request.getSession().getAttribute("user") == null) {
+            return "error";
+        }
+        return "queryScore";
+    }
 
-	@RequestMapping("/resetPassword")
-	@ResponseBody
-	public void resetPassword(HttpServletRequest request,HttpServletResponse response) {
-	    System.out.println("account:"+request.getParameter("account"));
-	    System.out.println("password:"+request.getParameter("password"));
-		if (request.getParameter("account") == null || request.getParameter("password") == null) {
-			return;
-		}
-		String account = request.getParameter("account").trim();
-		String password = request.getParameter("password").trim();
-		int res=userServiceImpl.updatePassword(account, password);
-		try {
+    @RequestMapping("/queryMenu")
+    @ResponseBody
+    public void menu(HttpServletRequest request, HttpServletResponse response) {
+        if (request.getSession().getAttribute("user") == null) {
+            return;
+        }
+        User user = (User) request.getSession().getAttribute("user");
+        List<Right> rightList = rightServiceImpl.listRightByUser(user);
+        if (rightList == null || rightList.size() == 0) {
+            return;
+        }
+        String jsonStrRightList = JSONObject.toJSONString(rightList);
+        try {
+            response.getWriter().print(jsonStrRightList);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @RequestMapping("/toForgetPassword")
+    public String toForgetPassword() {
+        return "forgetPassword";
+    }
+
+    @RequestMapping("/resetPwd_sendSMSCode")
+    @ResponseBody
+    public void resetPwd_sendSMSCode(HttpServletRequest request, HttpServletResponse response) {
+        if (request.getParameter("user_account") == null) {
+            return;
+        }
+        String account = request.getParameter("user_account").trim();
+        User user = userServiceImpl.getUserByAccount(account);
+        if (user == null) {
+            return;
+        }
+        String userAccount=user.getLoginName();
+        request.getSession().setAttribute("userAccount", userAccount);
+        String mobile = user.getMobile().trim();
+        if(mobile==null||mobile==""){
+            return;
+        }
+        String smsCode = userServiceImpl.sendSMSCode(mobile);
+        request.getSession().setAttribute("smsCode", smsCode);
+        System.out.println(smsCode);
+        try {
+            response.getWriter().print(smsCode);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    @RequestMapping("/resetPassword")
+    @ResponseBody
+    public void resetPassword(HttpServletRequest request, HttpServletResponse response) {
+        if(request.getSession().getAttribute("userAccount")==null){
+            return;
+        }
+        String account = request.getSession().getAttribute("userAccount").toString();
+        if (request.getParameter("password") == null) {
+            return;
+        }
+        String password = request.getParameter("password").trim();
+        int res = userServiceImpl.updatePassword(account, password);
+        try {
             response.getWriter().print(res);
         } catch (IOException e) {
             e.printStackTrace();
         }
-	}
+    }
 
-	@RequestMapping("/toQueryScore")
-	public String toMain(HttpServletRequest request) {
-		if(request.getSession().getAttribute("user")==null){
-			return "error";
-		}
-		return "queryScore";
-	}
+    @RequestMapping("/toQueryScore")
+    public String toMain(HttpServletRequest request) {
+        if (request.getSession().getAttribute("user") == null) {
+            return "error";
+        }
+        return "queryScore";
+    }
 
-	@RequestMapping("/toQueryEnroll")
-	public String toQueryEnroll(HttpServletRequest request) {
-		if(request.getSession().getAttribute("user")==null){
-			return "error";
-		}
-		return "queryEnroll";
-	}
+    @RequestMapping("/toQueryEnroll")
+    public String toQueryEnroll(HttpServletRequest request) {
+        if (request.getSession().getAttribute("user") == null) {
+            return "error";
+        }
+        return "queryEnroll";
+    }
 
-	@RequestMapping("/toQueryReturn")
-	public String toQueryTdk(HttpServletRequest request) {
-		if(request.getSession().getAttribute("user")==null){
-			return "error";
-		}
-		return "queryReturn";
-	}
+    @RequestMapping("/toQueryReturn")
+    public String toQueryTdk(HttpServletRequest request) {
+        if (request.getSession().getAttribute("user") == null) {
+            return "error";
+        }
+        return "queryReturn";
+    }
 
-	@RequestMapping("/toQueryWish")
-	public String toQueryWish(HttpServletRequest request) {
-		if(request.getSession().getAttribute("user")==null){
-			return "error";
-		}
-		return "queryWish";
-	}
-	
-	@RequestMapping("/toQueryOfficer")
+    @RequestMapping("/toQueryWish")
+    public String toQueryWish(HttpServletRequest request) {
+        if (request.getSession().getAttribute("user") == null) {
+            return "error";
+        }
+        return "queryWish";
+    }
+
+    @RequestMapping("/toQueryOfficer")
     public String toQueryOfficer(HttpServletRequest request) {
-        if(request.getSession().getAttribute("user")==null){
+        if (request.getSession().getAttribute("user") == null) {
             return "error";
         }
         return "queryOfficer";
     }
-	
-	@RequestMapping("/toQueryIndependent")
-	public String toQueryIndependent(HttpServletRequest request){
-	    if(request.getSession().getAttribute("user")==null){
+
+    @RequestMapping("/toQueryIndependent")
+    public String toQueryIndependent(HttpServletRequest request) {
+        if (request.getSession().getAttribute("user") == null) {
             return "error";
         }
-	    return "queryIndependent";
-	}
-	
-	@RequestMapping("/toUpdateDatebase")
-    public String toUpdateDatebase(HttpServletRequest request){
-        if(request.getSession().getAttribute("user")==null){
+        return "queryIndependent";
+    }
+
+    @RequestMapping("/toUpdateDatebase")
+    public String toUpdateDatebase(HttpServletRequest request) {
+        if (request.getSession().getAttribute("user") == null) {
             return "error";
         }
         return "updateDatebase";
     }
-	
-	@RequestMapping("/toQueryBatch")
-    public String toQueryBatch(HttpServletRequest request){
-        if(request.getSession().getAttribute("user")==null){
+
+    @RequestMapping("/toQueryBatch")
+    public String toQueryBatch(HttpServletRequest request) {
+        if (request.getSession().getAttribute("user") == null) {
             return "error";
         }
         return "queryBatch";

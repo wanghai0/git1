@@ -48,7 +48,7 @@
     dydm, login_time, login_count, status
     from t_user
     <where>
-    	login_name=#{login_name}
+    	login_name=#{login_name} and status='1'
     </where>
   </select>
   <update id="updatePassword">

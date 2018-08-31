@@ -23,7 +23,7 @@ public interface IUserService {
 
     User getUserByAccount(String account);
 
-    String sendSMSValidationCode(String phone);
+    String sendSMSCode(String phone);
 
     int updatePassword(String account, String password);
 

@@ -37,7 +37,7 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public String sendSMSValidationCode(String mobile) {
+    public String sendSMSCode(String mobile) {
         String validationCode = RandomCode.randomCheckcode(6);
         try {
             SmsRun sms = new SmsRun(mobile, validationCode);
