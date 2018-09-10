@@ -105,6 +105,10 @@
 			}
 		});
 	}
+	
+	function toTestAop(){
+		location.href="${pageContext.request.contextPath}/toTestAop";
+	}
 </script>
 </head>
 <body>
@@ -125,6 +129,9 @@
 			</nav>
 		</div>
 		<div class="form-group" id="res_div"></div>
+	</div>
+	<div>
+	   <button type="button" onclick="toTestAop()">test</button>
 	</div>
 </body>
 </html>

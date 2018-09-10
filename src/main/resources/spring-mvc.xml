@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
-	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:context="http://www.springframework.org/schema/context"
 	xsi:schemaLocation="
 		http://www.springframework.org/schema/beans
 	    http://www.springframework.org/schema/beans/spring-beans.xsd
 	    http://www.springframework.org/schema/mvc
 	    http://www.springframework.org/schema/mvc/spring-mvc.xsd
 	    http://www.springframework.org/schema/context
-	    http://www.springframework.org/schema/context/spring-context.xsd">
+	    http://www.springframework.org/schema/context/spring-context.xsd
+	    http://www.springframework.org/schema/aop 
+	    http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
 	<!-- 启用注解 -->
 	<mvc:annotation-driven>
 		<mvc:message-converters register-defaults="true">
@@ -25,7 +27,7 @@
 					<list>
 						<value>WriteMapNullValue</value>
 						<value>QuoteFieldNames</value>
-					</list> 
+					</list>
 				</property>
 			</bean>
 		</mvc:message-converters>
@@ -38,6 +40,9 @@
 	<!-- <mvc:default-servlet-handler/> -->
 	<!-- 自动扫描器 -->
 	<context:component-scan base-package="com.ctcc.xfxt2.*" />
+	<!-- proxy-target-class属性值决定是基于接口的还是基于类的代理被创建。如果proxy-target-class 属性值被设置为true，那么基于类的代理将起作用（这时需要cglib库）。如果proxy-target-class属值被设置为false或者这个属性被省略，那么标准的JDK 
+		基于接口的代理 -->
+	<aop:aspectj-autoproxy proxy-target-class="true" />
 	<!-- 视图模式配置 -->
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -45,13 +50,8 @@
 		<property name="suffix" value=".jsp" />
 	</bean>
 	<!-- 配置文件上传 -->
-	<!-- <bean id="multipartResolver"
-		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-		默认编码 
-		<property name="defaultEncoding" value="utf-8" />
-		文件大小最大值
-		<property name="maxUploadSize" value="10485760000" />
-		内存中的最大值
-		<property name="maxInMemorySize" value="40960" /> 
-	</bean>-->
+	<!-- <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"> 
+		默认编码 <property name="defaultEncoding" value="utf-8" /> 文件大小最大值 <property 
+		name="maxUploadSize" value="10485760000" /> 内存中的最大值 <property name="maxInMemorySize" 
+		value="40960" /> </bean> -->
 </beans>

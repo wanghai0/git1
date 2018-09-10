@@ -21,6 +21,10 @@
 			url : "${pageContext.request.contextPath}/resetPwd_sendSMSCode",
 			data : "user_account=" + $("#user_account").val(),
 			success : function(data) {
+				if(data==null||data==''){
+					alert("用户不存在，请核实！");
+					return;
+				}
 				$("#accountDiv").css("display", "none");
 				$("#SMSCodeDiv").css("display", "block");
 				$("#user_SMSCode").focus();
@@ -107,7 +111,7 @@
 			<div class="form-group" id="SMSCodeDiv" style="display: none">
 				<label for="">请输入短信口令：</label>
 				<input type="text" class="form-control" id="user_SMSCode" name="user_SMSCode" placeholder="请输入短信口令" />
-				<button type="button" class="btn btn-default" onclick="checkSMSCode()">确认</button>
+				<button type="button" class="btn btn-default" onclick="checkUserSMSCode()">确认</button>
 			</div>
 			<div class="form-group" id="resetPasswordDiv" style="display: none">
 				<div>
